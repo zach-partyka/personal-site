@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("projects section shows 3 project cards", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("./");
 
   const cards = page.locator("#projects .project-card");
   await expect(cards).toHaveCount(3);

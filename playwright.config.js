@@ -2,7 +2,12 @@ import { defineConfig, devices } from "@playwright/test";
 
 // Ralph runs `STAGING_URL=$RALPH_DEPLOY_URL npm test` against the deployed site.
 // With no STAGING_URL, tests run against a local `vite preview` build.
-const baseURL = process.env.STAGING_URL || "http://localhost:4173/personal-site/";
+// A trailing slash is required: tests navigate with page.goto("./"), which
+// resolves relative to baseURL's directory — without the slash, the last path
+// segment (e.g. "/personal-site") is dropped and requests hit the bare origin.
+const rawBaseURL =
+  process.env.STAGING_URL || "http://localhost:4173/personal-site/";
+const baseURL = rawBaseURL.endsWith("/") ? rawBaseURL : `${rawBaseURL}/`;
 
 export default defineConfig({
   testDir: "tests",
