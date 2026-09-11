@@ -12,7 +12,9 @@ light/dark toggle, and a footer that shows when the site last shipped.
 ### Critical Path
 <!-- Tasks that must complete in order. Ralph executes top-to-bottom. -->
 
-- [ ] **#1** Projects section - render 3 cards from a data file
+- [ ] **#1** Projects section - render 3 cards from a data file - IN PROGRESS
+  - Started: 2026-09-11
+  - Model: Sonnet 5 (default)
   - Acceptance: `src/projects.js` exports 3 entries `{ title, blurb, url }`; the deployed
     `#projects` section shows 3 `.project-card` elements with that content and no
     "Coming soon." text. A Playwright spec asserts 3 cards are visible.
