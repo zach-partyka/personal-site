@@ -1,6 +1,6 @@
 # Sprint 1: Flesh out the personal site
 
-**Last updated:** 2026-09-07
+**Last updated:** 2026-09-11
 
 ## Goal
 
@@ -11,15 +11,6 @@ light/dark toggle, and a footer that shows when the site last shipped.
 
 ### Critical Path
 <!-- Tasks that must complete in order. Ralph executes top-to-bottom. -->
-
-- [ ] **#1** Projects section - render 3 cards from a data file - IN PROGRESS
-  - Started: 2026-09-11
-  - Model: Sonnet 5 (default)
-  - Acceptance: `src/projects.js` exports 3 entries `{ title, blurb, url }`; the deployed
-    `#projects` section shows 3 `.project-card` elements with that content and no
-    "Coming soon." text. A Playwright spec asserts 3 cards are visible.
-  - Files: `src/projects.js`, `src/main.js` (already renders the array — just needs data),
-    `tests/projects.spec.js`
 
 - [ ] **#2** Light/dark theme toggle
   - Acceptance: a button in the header toggles a `data-theme="dark"` attribute on
@@ -49,7 +40,20 @@ light/dark toggle, and a footer that shows when the site last shipped.
 ## Completed
 <!-- Tasks move here when done. Include performance data. -->
 
-(empty)
+- [x] **#1** Projects section - render 3 cards from a data file
+  - Filled `src/projects.js` with 3 real project entries (title, blurb, url); main.js
+    already rendered the array so no template changes were needed.
+  - Added `tests/projects.spec.js` asserting 3 `.project-card` elements render with
+    no "Coming soon." text.
+  - Discovered and fixed a pre-existing Playwright infra bug while verifying against
+    the deploy target: `baseURL` had no trailing slash and specs used
+    `page.goto("/")` (absolute-path), which always resolved to the bare GitHub Pages
+    origin instead of `/personal-site`, 404ing on every test (including the
+    pre-existing `home.spec.js`). Fixed in `playwright.config.js` (trailing-slash
+    normalization) and switched all specs to `page.goto("./")`.
+  - Verified: `npm run check` passed, all 3 Playwright tests passed locally and
+    against the deployed site.
+  - **Performance:**
 
 ## Notes
 - Deploy is GitHub Pages via Actions; give the workflow ~2 min after a merge before the
